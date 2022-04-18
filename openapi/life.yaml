@@ -1,0 +1,46 @@
+openapi: '3.0.2'
+info:
+  title: GameOfLife API
+  version: '1.0'
+  description: API for getting calculations for <a href="#blah">Conwyay's Game of Life</a>
+  license:
+    name: MIT
+    url: https://mit-license.org/
+servers:
+  - url: https://life.test
+paths:
+  /next:
+    post:
+      description: Get the next generation using standard B3S23 rule
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/board'
+      responses:
+        '200':
+          description: Board with new generation
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/board'
+
+components:
+  schemas:
+    board:
+      properties:
+        width:
+          type: integer
+          example: 100
+        height:
+          type: integer
+          example: 100
+        contents:
+          type: array
+          items:
+            type: array
+            items: 
+              type: integer
+          description: Array of two-element arrays of integers, [row, column] with positions of live cells
+          example: [[10, 11], [10, 12], [10, 13]]
+      
